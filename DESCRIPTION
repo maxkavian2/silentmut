@@ -1,0 +1,16 @@
+Package: silentmut
+Encoding: UTF-8
+Type: Package
+Title: Silent mutation design of cDNA for cloning
+Version: 0.0.1
+Date: 2024-02-12
+Author: Máximo Sánchez-Aragón
+Maintainer: Máximo Sánchez-Aragón <maxsanara@gmail.com>
+Description:This package provides capabilities for silent mutation design of cDNA.
+License: GPL (>= 3)
+Depends: BiocManager
+OS_type: Debian (12.0)
+RoxygenNote: 7.2.3
+Imports: Rdpack
+RdMacros: Rdpack
+
