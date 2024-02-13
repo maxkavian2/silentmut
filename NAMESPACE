@@ -1,3 +1,2 @@
-useDynLib(silentmut)
 exportPattern("^[[:alpha:]]+")
 importFrom(Rdpack,reprompt)
