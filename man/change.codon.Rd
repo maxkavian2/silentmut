@@ -4,13 +4,39 @@
 \alias{change.codon}
 \title{Generates a silent mutation to a codon.}
 \usage{
-change.codon(cps, codpos, sq)
+change.codon(
+  cps,
+  sq,
+  gc = NULL,
+  codon.length = 3,
+  codpos = (1:nchar(sq))[(1:nchar(sq))\%\%codon.length == 1]
+)
+}
+\arguments{
+\item{cps}{Index of the codon to be replaced.}
+
+\item{sq}{Original DNA sequence.}
+
+\item{gc}{The genetic code used, as \code{data.frame}.}
+
+\item{codon.length}{The length of a typical codon, i.e. 3 bases.}
+
+\item{codpos}{Vector of codon positions. They are generated automatically from the first position in \code{sq}, which is assumed to mark the reading frame.}
 }
 \value{
-A DNA sequence expressing an ORF with an alternative set of equivalent codons.
+A DNA sequence, corresponding to an ORF, with an alternative set of equivalent codons.
 }
 \description{
 It creates a silent mutation to a codon at the specified position.
+}
+\details{
+The function generates a sequence based on \code{sq}, with a replaced codon at the position \code{cps} by synonymous codon. If \code{cps} is greater than the greater possible codon index, or the coded residue has no redundancy (e.g. tryptophan), the original \code{sq} will be returned. \code{cps} values equal or lower to zero throw an error.
+}
+\examples{
+# It changes the third codon of the sequence
+sq <- "AAATTTCCCGGG"
+load("inst/extdata/DROME_gencode")
+change.codon(0,sq,gc=codon_table)
 }
 \author{
 Máximo Sánchez-Aragón
