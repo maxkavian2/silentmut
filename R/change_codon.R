@@ -1,10 +1,11 @@
 #'@title Generates a silent mutation to a codon.
 #'@description It creates a silent mutation to a codon at the specified position.
-#'@param cps
-#'@param codpos
-#'@param sq
-#'@return A DNA sequence expressing an ORF with an alternative set of equivalent codons.
+#'@param cps Index of the codon to be replaced.
+#'@param codpos Vector of codon positions
+#'@param sq Original DNA sequence
+#'@return A DNA sequence, corresponding to an ORF, with an alternative set of equivalent codons.
 #'@author Máximo Sánchez-Aragón
+
 change.codon <- function(cps, codpos, sq){
   cdn <- substr(sq, codpos[cps],  codpos[cps]+(codon.length-1))
   aan <- as.character(codon_table$aa[which(codon_table$sq == cdn)])
