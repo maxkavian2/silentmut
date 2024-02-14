@@ -2,14 +2,17 @@
 % Please edit documentation in R/change_codon.R
 \name{change.codon}
 \alias{change.codon}
-\title{Generates a silent mutation to a codon.}
+\title{Generates a silent mutation to a codon (equivalent substitution), or any compatible codon from a degenerated (incomplete) codon sequence.}
 \usage{
 change.codon(
   cps,
   sq,
-  gc = NULL,
+  gcode = NULL,
   codon.length = 3,
-  codpos = (1:nchar(sq))[(1:nchar(sq))\%\%codon.length == 1]
+  codpos = (1:nchar(sq))[(1:nchar(sq))\%\%codon.length == 1],
+  degenerate = FALSE,
+  aa.col = "aa",
+  codon.col = "sq"
 )
 }
 \arguments{
@@ -17,26 +20,41 @@ change.codon(
 
 \item{sq}{Original DNA sequence.}
 
-\item{gc}{The genetic code used, as \code{data.frame}.}
+\item{gcode}{The genetic code used, as \code{data.frame}. If NULL, the standard genetic code included in the BiocManager will be used (see details).}
 
 \item{codon.length}{The length of a typical codon, i.e. 3 bases.}
 
 \item{codpos}{Vector of codon positions. They are generated automatically from the first position in \code{sq}, which is assumed to mark the reading frame.}
+
+\item{degenerate}{If TRUE, the base symbol at \code{sq} is treated as degenerated (i.e. including special characters such as B,K,S,M,V, etc.)}
+
+\item{aa.col}{The name of the column in the genetic code corresponding to the aminoacid key.}
+
+\item{codon.col}{The name of the column in the genetic code corresponding to the codon sequence.}
 }
 \value{
 A DNA sequence, corresponding to an ORF, with an alternative set of equivalent codons.
 }
 \description{
-It creates a silent mutation to a codon at the specified position.
+It creates a silent mutation to a codon at the specified position, or a random mutation on a degenerated codon in an incomplete sequence.
 }
 \details{
-The function generates a sequence based on \code{sq}, with a replaced codon at the position \code{cps} by synonymous codon. If \code{cps} is greater than the greater possible codon index, or the coded residue has no redundancy (e.g. tryptophan), the original \code{sq} will be returned. \code{cps} values equal or lower to zero throw an error.
+The function generates a sequence based on \code{sq}, with a replaced codon at the position \code{cps} by a synonymous codon. If \code{cps} is greater than the greater possible codon index, or the coded residue has no degeneration (e.g. tryptophan), the original \code{sq} will be returned. \code{cps} values equal or lower to zero throw an error.
+The genetic code used by default is based on the vector \code{GENETIC_CODE} accessible through the BiocManager package. A customized genetic code can be indicated instead, consisting on a data.frame with two character vectors named \code{aa} and \code{sq}. Column names can be altered to allow for other classifications to be used as criteria for the substitution (e.g. chemical family of the residue lateral chain).
 }
 \examples{
+
 # It changes the third codon of the sequence
 sq <- "AAATTTCCCGGG"
-load("inst/extdata/DROME_gencode")
-change.codon(0,sq,gc=codon_table)
+change.codon(3,sq,gc=NULL)
+
+# The third codon changes randomly in every position, but excludes A
+# in the second position
+sq <- "AAATTTNBNGGG"
+change.codon(3,sq,gc=NULL, degenerate = TRUE)
+
+# throws an error (it does not work with degenerated sequences)
+change.codon(3,sq,gc=NULL, degenerate = FALSE)
 }
 \author{
 Máximo Sánchez-Aragón
