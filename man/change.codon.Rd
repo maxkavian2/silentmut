@@ -43,7 +43,6 @@ The function generates a sequence based on \code{sq}, with a replaced codon at t
 The genetic code used by default is based on the vector \code{GENETIC_CODE} accessible through the BiocManager package. A customized genetic code can be indicated instead, consisting on a data.frame with two character vectors named \code{aa} and \code{sq}. Column names can be altered to allow for other classifications to be used as criteria for the substitution (e.g. chemical family of the residue lateral chain).
 }
 \examples{
-
 # It changes the third codon of the sequence
 sq <- "AAATTTCCCGGG"
 change.codon(3,sq,gc=NULL)
@@ -55,6 +54,7 @@ change.codon(3,sq,gc=NULL, degenerate = TRUE)
 
 # throws an error (it does not work with degenerated sequences)
 change.codon(3,sq,gc=NULL, degenerate = FALSE)
+
 }
 \author{
 Máximo Sánchez-Aragón

@@ -1,4 +1,3 @@
-
 # It changes the third codon of the sequence
 sq <- "AAATTTCCCGGG"
 change.codon(3,sq,gc=NULL)
@@ -10,3 +9,4 @@ change.codon(3,sq,gc=NULL, degenerate = TRUE)
 
 # throws an error (it does not work with degenerated sequences)
 change.codon(3,sq,gc=NULL, degenerate = FALSE)
+
