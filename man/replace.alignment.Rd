@@ -2,7 +2,7 @@
 % Please edit documentation in R/replace_alignment.R
 \name{replace.alignment}
 \alias{replace.alignment}
-\title{Introduces silent mutation in the alignment regions of two sequences}
+\title{Introduces silent mutations in the alignment regions of two sequences}
 \usage{
 replace.alignment(
   cdna.file,

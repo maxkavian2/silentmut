@@ -1,4 +1,4 @@
-#'@title Introduces silent mutation in the alignment regions of two sequences
+#'@title Introduces silent mutations in the alignment regions of two sequences
 #'@description It introduces silent mutations exclusively in the alignment region of two sequences, typically a cDNA sequence and a RNAi sequence.
 #'@param cdna.file FASTA file containing the cDNA sequence (larger sequence).
 #'@param rnai.file FASTA file containing the RNAi sequence (shorter sequence).

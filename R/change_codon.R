@@ -18,8 +18,8 @@ change.codon <- function(cps, sq, gcode=NULL, codon.length=3, codpos=(1:nchar(sq
     stop("Max says: cps must be equal or greater than 1.")
 
   lsq <- nchar(sq)
-  #if(cps > lsq %/% codon.length )
-  #  warning("Max says: index out of bounds; no changes in sequence.")
+  if(cps > lsq %/% codon.length )
+    warning("Max says: index out of bounds; no changes in sequence.")
 
   codon_table <- gcode
   if(is.null(codon_table)){
