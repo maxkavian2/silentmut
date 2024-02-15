@@ -17,7 +17,7 @@
 change.codon <- function(cps, sqa, gcode=NULL, codon.length=3, codpos=(1:nchar(sq))[(1:nchar(sq))%%codon.length == 1], degenerate=FALSE, aa.col="aa", codon.col="sq"){
   sq <- toupper(sqa)
 
-  if(get_degeneracy(sq, rgx="^[ATCGNBVDHRYWSMK]*$"))
+  if(check.degeneracy(sq, rgx="^[ATCGNBVDHRYWSMK]*$"))
     stop("[Max says]: the sequence is not written in a compatible format!")
 
   if(cps <= 0)
@@ -42,17 +42,25 @@ change.codon <- function(cps, sqa, gcode=NULL, codon.length=3, codpos=(1:nchar(s
   cdn <- substr(sq, codpos[cps],  codpos[cps]+(codon.length-1))
   t <- c()
   if(!degenerate){
-    aan <- as.character(codon_table[[aa.col]][which(codon_table[[codon.col]] == cdn)])
-    t <- codon_table[[codon.col]][codon_table[[aa.col]] == aan & codon_table[[codon.col]] != cdn]
+    w <- which(codon_table[[codon.col]] == cdn )
+    aan <- codon_table[[aa.col]][w]
+    t <- codon_table[[codon.col]][codon_table[[aa.col]] == aan & codon_table[[codon.col]] != cdn ] #& !is.na(codon_table[[codon.col]])
+
+    t <- t[!is.na(t)]
+
+    #print(aan)
+    #print(t)
+
   }else{
     inx <- grep(get.codon.pattern(cdn), codon_table[[codon.col]])
     t <- codon_table[[codon.col]][inx]
   }
 
+
   if(length(t) > 0){ # prevents codons unique sequences from occurring.
     ncdn <- sample(t,1)
     nsq <- paste(substr(sq, 1, codpos[cps]-1),ncdn,
-                 substr(sq, codpos[cps]+codon.length, cps*lsq), sep="")
+                 substr(sq, codpos[cps]+codon.length, lsq), sep="")
     return(nsq)
   }else{
     return(sq)

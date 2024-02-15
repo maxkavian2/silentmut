@@ -7,7 +7,7 @@
 #'@return Returns a genetic sequence with silent mutations at the alignment region.
 #'@author Máximo Sánchez-Aragón.
 #'@example examples/silent_codon_aligned.R
-replace.alignment <- function(sqsa, gcode = NULL, codon.length = 3, gap.opening = 100){
+replace.alignment <- function(sqsa, gcode = NULL, codon.length = 3, gap.opening = 100, ...){
 
   if(length(sqsa) != 2)
     stop("[Max says] the argument must contain strings of length 2")
@@ -20,7 +20,7 @@ replace.alignment <- function(sqsa, gcode = NULL, codon.length = 3, gap.opening 
   algpos <- c()
 
   #if(fls.flag){
-    seqsal <- multi.alignment(c(cdna.file, rnai.file), path=getwd(), gapOpening=gap.opening)
+    seqsal <- multi.alignment(c(cdna.file, rnai.file), gapOpening=gap.opening, ...)
     algpos <- make.break.list(seqsal)[[2]]
     algpos[1] <- algpos[1] +1
 

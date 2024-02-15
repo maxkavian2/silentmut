@@ -4,7 +4,7 @@
 \alias{replace.alignment}
 \title{Introduces silent mutations in the alignment regions of two sequences}
 \usage{
-replace.alignment(sqsa, gcode = NULL, codon.length = 3, gap.opening = 100)
+replace.alignment(sqsa, gcode = NULL, codon.length = 3, gap.opening = 100, ...)
 }
 \arguments{
 \item{sqsa}{A vector of paths to the FASTA files containing the sequences. The length must be 2.}
@@ -19,12 +19,20 @@ replace.alignment(sqsa, gcode = NULL, codon.length = 3, gap.opening = 100)
 Returns a genetic sequence with silent mutations at the alignment region.
 }
 \description{
-It introduces silent mutations exclusively in the alignment region of two sequences, typically a cDNA sequence and a RNAi sequence.
+It introduces silent mutations exclusively in the alignment region of two sequences, typically a cDNA sequence and a RNAi sequence. The cDNA sequence will be assumed as the longest from the input.
 }
 \examples{
-rnai.file <- "inst/extdata/panos_rnai"
-cdna.file <- "inst/extdata/panos_cdna"
+package.name <- "silentmut"
+
+# takes the first path with a positive hit for the silentmut package
+indexes <- which(dir.exists(paste(.libPaths(),"/",package.name,sep="")))
+rnai.file <- paste(.libPaths()[indexes[1]],"/",package.name,"/data/panos_rnai",sep="")
+cdna.file <- paste(.libPaths()[indexes[1]],"/",package.name,"/data/panos_cdna",sep="")
+
 replace.alignment(c(cdna.file,rnai.file) )
+
+
+
 }
 \author{
 Máximo Sánchez-Aragón.

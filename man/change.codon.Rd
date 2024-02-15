@@ -40,20 +40,41 @@ It creates a silent mutation to a codon at the specified position, or a random m
 }
 \details{
 The function generates a sequence based on \code{sq}, with a replaced codon at the position \code{cps} by a synonymous codon. If \code{cps} is greater than the greater possible codon index, or the coded residue has no degeneration (e.g. tryptophan), the original \code{sq} will be returned. \code{cps} values equal or lower to zero throw an error.
+
 The genetic code used by default is based on the vector \code{GENETIC_CODE} accessible through the BiocManager package. A customized genetic code can be indicated instead, consisting on a data.frame with two character vectors named \code{aa} and \code{sq}. Column names can be altered to allow for other classifications to be used as criteria for the substitution (e.g. chemical family of the residue lateral chain).
 }
 \examples{
-# It changes the third codon of the sequence
-sq <- "AAATTTCCCGGG"
-change.codon(3,sq,gc=NULL)
+# EXAMPLE 1
+# It changes the third codon of a non-degenerated sequence.
+change.codon(3,"AAATTTCCCGGG",gcode=NULL)
 
+# EXAMPLE 2
+# It changes the third codon of a degenerated sequence.
 # The third codon changes randomly in every position, but excludes A
 # in the second position
-sq <- "AAATTTNBNGGG"
-change.codon(3,sq,gc=NULL, degenerate = TRUE)
+change.codon(3,"AAATTTNBNGGG",gcode=NULL, degenerate = TRUE)
 
+# EXAMPLE 3
 # throws an error (it does not work with degenerated sequences)
-change.codon(3,sq,gc=NULL, degenerate = FALSE)
+# change.codon(3,sq,gc=NULL, degenerate = FALSE)
+
+# EXAMPLE 4
+# loads the codon table from the data folder
+package.name <- "silentmut"
+indexes <- which(dir.exists(paste(.libPaths(),"/",package.name,sep="")))
+load(paste(.libPaths()[indexes[1]],"/",package.name,"/data/DROME_gencode",sep=""))
+
+polar.aa <- c("R","S","K","N","Q","H","W","C","Y","G","E","D")
+apolar.aa<- c("T", "M", "I", "P", "L","V","F","A")
+
+v <- rep(NA, times=nrow(codon_table))
+v[!is.na(match(codon_table$aa, polar.aa))] <- "P"
+v[!is.na(match(codon_table$aa, apolar.aa))] <- "AP"
+codon_table <- data.frame(codon_table, polarity=v)
+
+change.codon(3,"AAATTTCCCGGG", gcode=codon_table, aa.col = "polarity")
+
+
 
 }
 \author{
