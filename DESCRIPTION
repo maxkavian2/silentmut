@@ -1,7 +1,7 @@
 Package: silentmut
 Encoding: UTF-8
 Type: Package
-Title: Silent mutation generation or DNA ORFs.
+Title: Silent mutation generation in DNA ORFs.
 Version: 0.0.2
 Date: 2024-02-12
 Author: Máximo Sánchez-Aragón
