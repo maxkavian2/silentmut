@@ -6,7 +6,7 @@
 \usage{
 change.codon(
   cps,
-  sq,
+  sqa,
   gcode = NULL,
   codon.length = 3,
   codpos = (1:nchar(sq))[(1:nchar(sq))\%\%codon.length == 1],
@@ -18,7 +18,7 @@ change.codon(
 \arguments{
 \item{cps}{Index of the codon to be replaced.}
 
-\item{sq}{Original DNA sequence.}
+\item{sqa}{Original DNA sequence.}
 
 \item{gcode}{The genetic code used, as \code{data.frame}. If NULL, the standard genetic code included in the BiocManager will be used (see details).}
 

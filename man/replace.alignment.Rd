@@ -4,24 +4,16 @@
 \alias{replace.alignment}
 \title{Introduces silent mutations in the alignment regions of two sequences}
 \usage{
-replace.alignment(
-  cdna.file,
-  rnai.file,
-  gcode = NULL,
-  codon.length = 3,
-  gap.opening = 100
-)
+replace.alignment(sqsa, gcode = NULL, codon.length = 3, gap.opening = 100)
 }
 \arguments{
-\item{cdna.file}{FASTA file containing the cDNA sequence (larger sequence).}
-
-\item{rnai.file}{FASTA file containing the RNAi sequence (shorter sequence).}
+\item{sqsa}{A vector of paths to the FASTA files containing the sequences. The length must be 2.}
 
 \item{gcode}{Genetic code used. If \code{NULL}, the \code{GENETIC_CODE} object from the BiocManager package is used.}
 
 \item{codon.length}{The length of a codon, typically 3}
 
-\item{gap.opening}{Indel penalty for ClustalW.}
+\item{gap.opening}{Indel penalty for ClustalW. Keeping this parameter high is recommended to ensure global aligments with no indels.}
 }
 \value{
 Returns a genetic sequence with silent mutations at the alignment region.
@@ -32,7 +24,7 @@ It introduces silent mutations exclusively in the alignment region of two sequen
 \examples{
 rnai.file <- "inst/extdata/panos_rnai"
 cdna.file <- "inst/extdata/panos_cdna"
-replace.alignment(cdna.file,rnai.file)
+replace.alignment(c(cdna.file,rnai.file) )
 }
 \author{
 Máximo Sánchez-Aragón.

@@ -7,6 +7,9 @@
 #'@author Máximo Sánchez-Aragón.
 change.all.codons <- function(codpos, sq, ...){
   nsq <- sq
+  if(nchar(nsq) %% 3 != 0)
+    warning("[Max says] the sequence does not contain an exact number of codons, i.e. incomplete ORF")
+
   for(i in 1:length(codpos)) nsq <- change.codon(i, nsq, codpos=codpos, ...)
   nsq
 }
