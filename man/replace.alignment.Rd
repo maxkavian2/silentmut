@@ -14,6 +14,8 @@ replace.alignment(sqsa, gcode = NULL, codon.length = 3, gap.opening = 100, ...)
 \item{codon.length}{The length of a codon, typically 3}
 
 \item{gap.opening}{Indel penalty for ClustalW. Keeping this parameter high is recommended to ensure global aligments with no indels.}
+
+\item{...}{Other arguments passed to \code{change.all.codons}.}
 }
 \value{
 Returns a genetic sequence with silent mutations at the alignment region.
